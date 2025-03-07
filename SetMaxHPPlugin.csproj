@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net48</TargetFramework>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="UnityEngine.PhysicsModule">
+            <HintPath>/home/container/.config/EXILED/Plugins/dependencies/UnityEngine.PhysicsModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>/home/container/.config/EXILED/Plugins/dependencies/UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="Assembly-CSharp">
+            <HintPath>/home/container/.config/EXILED/Plugins/dependencies/Assembly-CSharp.dll</HintPath>
+        </Reference>
+        <Reference Include="Exiled.API">
+            <HintPath>/home/container/.config/EXILED/Plugins/dependencies/Exiled.API.dll</HintPath>
+        </Reference>
+        <Reference Include="Mirror">
+            <HintPath>/home/container/.config/EXILED/Plugins/dependencies/Mirror.dll</HintPath>
+        </Reference>
+        <PackageReference Include="YamlDotNet" Version="11.0.0" />
+    </ItemGroup>
+    <ItemGroup>
+        <Reference Include="YamlDotNet">
+            <HintPath>C:\Users\willi\.nuget\packages\yamldotnet\11.0.0\lib\netstandard2.0\YamlDotNet.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="EXILED" Version="9.0.0-beta.5" />
+      <PackageReference Include="UnityEngine.Modules" Version="2021.3.33">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+    </ItemGroup>
+
+</Project>
