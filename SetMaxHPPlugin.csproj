@@ -22,12 +22,6 @@
         <Reference Include="Mirror">
             <HintPath>/home/container/.config/EXILED/Plugins/dependencies/Mirror.dll</HintPath>
         </Reference>
-        <PackageReference Include="YamlDotNet" Version="11.0.0" />
-    </ItemGroup>
-    <ItemGroup>
-        <Reference Include="YamlDotNet">
-            <HintPath>C:\Users\willi\.nuget\packages\yamldotnet\11.0.0\lib\netstandard2.0\YamlDotNet.dll</HintPath>
-        </Reference>
     </ItemGroup>
 
     <ItemGroup>
@@ -36,6 +30,7 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="YamlDotNet" Version="16.3.0" />
     </ItemGroup>
 
 </Project>

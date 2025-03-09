@@ -3,7 +3,7 @@ using Exiled.API.Features;
 using Exiled.Permissions.Extensions;
 using System;
 
-namespace SetMaxHPPlugin.Command
+namespace SetMaxHPPlugin
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class SetMaxHpCommand : ICommand
