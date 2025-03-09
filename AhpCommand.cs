@@ -1,25 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Timers;
 using CommandSystem;
 using Exiled.API.Features;
+using System;
 
-namespace YourPluginNamespace
+namespace AhpCommand
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class AddAHPCommand : ICommand
     {
         public string Command => "addAHP";
-        public string Description => "Adds artificial health (AHP) to a player with a set decay rate.";
+        public string Description => "Adds artificial health points (AHP) to a player.";
         public string[] Aliases => new string[] { };
-
-        private static Dictionary<Player, Timer> ActiveAHPDecay = new();
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
-            if (arguments.Count < 3)
+            if (arguments.Count < 2)
             {
-                response = "Usage: addAHP <player> <amount> <rate_of_degeneration>";
+                response = "Usage: addAHP <player> <amount> [decay rate]";
                 return false;
             }
 
@@ -30,54 +26,22 @@ namespace YourPluginNamespace
                 return false;
             }
 
-            if (!float.TryParse(arguments.At(1), out float ahpAmount) || ahpAmount <= 0)
+            if (!float.TryParse(arguments.At(1), out float amount) || amount <= 0)
             {
-                response = "Invalid AHP amount.";
+                response = "Invalid amount.";
                 return false;
             }
 
-            if (!float.TryParse(arguments.At(2), out float ahpDecayRate) || ahpDecayRate < 0)
+            float decay = 0f;
+            if (arguments.Count >= 3 && float.TryParse(arguments.At(2), out float parsedDecay))
             {
-                response = "Invalid AHP decay rate.";
-                return false;
+                decay = parsedDecay;
             }
 
-            // Apply initial AHP
-            target.ArtificialHealth += ahpAmount;
-
-            // Start decay process
-            StartAHPDecay(target, ahpDecayRate);
-
-            response = $"Gave {target.Nickname} {ahpAmount} AHP with a decay rate of {ahpDecayRate}.";
+            target.AddAhp(amount, 75f, decay, 0.7f, 0f, true);
+            
+            response = $"{target.Nickname} received {amount} AHP with a decay rate of {decay}.";
             return true;
-        }
-
-        private void StartAHPDecay(Player player, float decayRate)
-        {
-            if (ActiveAHPDecay.ContainsKey(player))
-            {
-                ActiveAHPDecay[player].Stop();
-                ActiveAHPDecay[player].Dispose();
-                ActiveAHPDecay.Remove(player);
-            }
-
-            Timer decayTimer = new Timer(1000);
-            decayTimer.Elapsed += (sender, e) =>
-            {
-                if (player.ArtificialHealth <= 0 || !player.IsAlive)
-                {
-                    decayTimer.Stop();
-                    decayTimer.Dispose();
-                    ActiveAHPDecay.Remove(player);
-                }
-                else
-                {
-                    player.ArtificialHealth = Math.Max(0, player.ArtificialHealth - decayRate);
-                }
-            };
-
-            ActiveAHPDecay[player] = decayTimer;
-            decayTimer.Start();
         }
     }
 }
